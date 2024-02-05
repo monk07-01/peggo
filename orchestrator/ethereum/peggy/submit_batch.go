@@ -90,6 +90,7 @@ func (s *peggyContract) SendTransactionBatch(
 		return nil, errors.New("Transaction with same batch input data is already present in mempool")
 	}
 
+	log.WithField("peggy_addr", s.peggyAddress.String()).Debugln("sending batch to peggy contract")
 	txHash, err := s.SendTx(ctx, s.peggyAddress, txData)
 	if err != nil {
 		metrics.ReportFuncError(s.svcTags)
