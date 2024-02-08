@@ -173,7 +173,7 @@ func (e *ethCommitter) SendTx(
 
 			switch {
 			case strings.Contains(err.Error(), "invalid sender"):
-				err := errors.New("failed to sign transaction")
+				err := errors.Wrap(err, "failed to sign transaction")
 				e.nonceCache.Incr(e.fromAddress)
 				return err
 			case strings.Contains(err.Error(), "nonce too low"),
