@@ -159,6 +159,13 @@ func (e *ethCommitter) SendTx(
 
 			txHash = signedTx.Hash()
 
+			signedTxJSON, err := signedTx.MarshalJSON()
+			if err != nil {
+				return errors.Wrap(err, "failed to encode signed tx to json")
+			}
+
+			log.Debugln("signed tx", string(signedTxJSON))
+
 			txHashRet, err := e.evmProvider.SendTransactionWithRet(opts.Context, signedTx)
 			if err == nil {
 				// override with a real hash from node resp
