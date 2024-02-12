@@ -150,7 +150,15 @@ func (e *ethCommitter) SendTx(
 			opts.Nonce = big.NewInt(nonce)
 			opts.Context, _ = context.WithTimeout(ctx, e.committerOpts.RPCTimeout)
 
-			tx := types.NewTransaction(opts.Nonce.Uint64(), recipient, nil, opts.GasLimit, opts.GasPrice, txData)
+			//tx := types.NewTransaction(opts.Nonce.Uint64(), recipient, nil, opts.GasLimit, opts.GasPrice, txData)
+			tx := types.NewTx(&types.LegacyTx{
+				Nonce:    opts.Nonce.Uint64(),
+				GasPrice: opts.GasPrice,
+				Gas:      opts.GasLimit,
+				To:       &recipient,
+				Data:     txData,
+			})
+
 			signedTx, err := opts.Signer(opts.From, tx)
 			if err != nil {
 				err := errors.Wrap(err, "failed to sign transaction")
