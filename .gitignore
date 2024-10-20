@@ -15,7 +15,7 @@
 # vendor/
 
 #ignore file
-.env.example
+git rm .env.example
 
 # OS
 .DS_Store
