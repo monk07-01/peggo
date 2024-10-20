@@ -15,7 +15,8 @@
 # vendor/
 
 #ignore file
-git rm .env.example
+git rm .env --cached
+git rm .env.example --cached
 
 # OS
 .DS_Store
